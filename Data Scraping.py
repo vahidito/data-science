@@ -10,6 +10,8 @@
 
 import requests
 from bs4 import BeautifulSoup as bs
+import numpy as np
+import pandas as pd
 
 # in this session we installed the requests and Beautifulsoup packages
 
@@ -58,21 +60,54 @@ soup_3 = bs(response_3.text, 'html.parser')
 table_3 = soup_3.find('table')
 rows = table_3.find_all('tr')
 # print(rows)
-for row in rows:
-    data = []
-    for head in row.findAll('th'):
-        # print(head.text)
-        heads = head.text
-        data.append(heads)
-
-    for body in row.findAll('td')[0:-1]:
-        bodies = body.text.replace('\n', '')
-        data.append(bodies)
-    print(data)
+# for row in rows:
+#     data = []
+#     for head in row.findAll('th'):
+#         # print(head.text)
+#         heads = head.text
+#         data.append(heads)
+#
+#     for body in row.findAll('td')[0:-1]:
+#         bodies = body.text.replace('\n', '')
+#         data.append(bodies)
+#     print(data)
 
 # _____________________________________________________________________________________________________________________
 ## Session_5
 ### Scraping data from digikala site
 
+url_4 = 'https://www.digikala.com/search/category-mobile-phone/product-list/'
+titles = []
+stars = []
+prices = []
+page_4 = requests.get(url_4)
+# print(page_4.text)
+soup_4 = bs(page_4.text, 'html.parser')
+
+title = soup_4.select(
+    'div.ellipsis-2 text-body2-strong text-neutral-700 styles_VerticalProductCard__productTitle__6zjjN')
+# print(title)
+for t in title:
+    name = t.text.strip()
+    titles.append(name)
+
+star = soup_4.select(
+    'div.ellipsis-2 text-body2-strong text-neutral-700 styles_VerticalProductCard__productTitle__6zjjN')
+# print(title)
+for s in star:
+    rate = s.text.strip()
+    titles.append(rate)
+price = star = soup_4.select(
+    'div.ellipsis-2 text-body2-strong text-neutral-700 styles_VerticalProductCard__productTitle__6zjjN')
+for p in price:
+    pr = p.text.strip()
+    prices.append(pr)
+
+product = {'Title': titles, 'Star': stars, 'Price': prices}
+data = pd.DataFrame.from_dict(product, orient='index')
+data = data.transpose()
+writer = pd.ExcelWriter('product.xlsx')
+data.to_excel(writer)
+writer.save()
 
 # _____________________________________________________________________________________________________________________
