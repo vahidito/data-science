@@ -22,19 +22,18 @@ import pandas as pd
 #
 
 #
-# url = "https://www.python.org/"
-# response = requests.get(url)
-
-# print(response.request.headers)
-# print(type(response.request.headers))
-# print(response.status_code)
-# print(response.reason)
-# print(response.headers)
-# print(response.text)  # source code
-# url_1 = "https://www.python.org/static/img/python-logo.png"
-# respo = requests.get(url_1)
-# with open("1.jpg", 'wb') as r:
-#     r.write(respo.content)
+url = "https://www.python.org/"
+response = requests.get(url)
+print(response.request.headers)
+print(type(response.request.headers))
+print(response.status_code)
+print(response.reason)
+print(response.headers)
+print(response.text)  # source code
+url_1 = "https://www.python.org/static/img/python-logo.png"
+respo = requests.get(url_1)
+with open("1.jpg", 'wb') as r:
+    r.write(respo.content)
 
 # _____________________________________________________________________________________________________________________
 
@@ -54,14 +53,14 @@ import pandas as pd
 # print(show2.text.strip())
 # print(show)
 
-url_3 = 'https://www.skysports.com/premier-league-table'
-response_3 = requests.get(url_3)
-soup_3 = bs(response_3.text, 'html.parser')
-table_3 = soup_3.find('table')
-rows = table_3.find_all('tr')
-# print(rows)
-# for row in rows:
-#     data = []
+# url_3 = 'https://www.skysports.com/premier-league-table'
+# response_3 = requests.get(url_3)
+# soup_3 = bs(response_3.text, 'html.parser')
+# table_3 = soup_3.find('table')
+# rows = table_3.find_all('tr')
+# # print(rows)
+# # for row in rows:
+# #     data = []
 #     for head in row.findAll('th'):
 #         # print(head.text)
 #         heads = head.text
@@ -76,38 +75,38 @@ rows = table_3.find_all('tr')
 ## Session_5
 ### Scraping data from digikala site
 
-url_4 = 'https://www.digikala.com/search/category-mobile-phone/product-list/'
-titles = []
-stars = []
-prices = []
-page_4 = requests.get(url_4)
-# print(page_4.text)
-soup_4 = bs(page_4.text, 'html.parser')
-
-title = soup_4.select(
-    'div.ellipsis-2 text-body2-strong text-neutral-700 styles_VerticalProductCard__productTitle__6zjjN')
-# print(title)
-for t in title:
-    name = t.text.strip()
-    titles.append(name)
-
-star = soup_4.select(
-    'div.ellipsis-2 text-body2-strong text-neutral-700 styles_VerticalProductCard__productTitle__6zjjN')
-# print(title)
-for s in star:
-    rate = s.text.strip()
-    titles.append(rate)
-price = star = soup_4.select(
-    'div.ellipsis-2 text-body2-strong text-neutral-700 styles_VerticalProductCard__productTitle__6zjjN')
-for p in price:
-    pr = p.text.strip()
-    prices.append(pr)
-
-product = {'Title': titles, 'Star': stars, 'Price': prices}
-data = pd.DataFrame.from_dict(product, orient='index')
-data = data.transpose()
-writer = pd.ExcelWriter('product.xlsx')
-data.to_excel(writer)
-writer.save()
+# url_4 = 'https://www.digikala.com/search/category-mobile-phone/product-list/'
+# titles = []
+# stars = []
+# prices = []
+# page_4 = requests.get(url_4)
+# # print(page_4.text)
+# soup_4 = bs(page_4.text, 'html.parser')
+#
+# title = soup_4.select(
+#     'div.ellipsis-2 text-body2-strong text-neutral-700 styles_VerticalProductCard__productTitle__6zjjN')
+# # print(title)
+# for t in title:
+#     name = t.text.strip()
+#     titles.append(name)
+#
+# star = soup_4.select(
+#     'div.ellipsis-2 text-body2-strong text-neutral-700 styles_VerticalProductCard__productTitle__6zjjN')
+# # print(title)
+# for s in star:
+#     rate = s.text.strip()
+#     titles.append(rate)
+# price = star = soup_4.select(
+#     'div.ellipsis-2 text-body2-strong text-neutral-700 styles_VerticalProductCard__productTitle__6zjjN')
+# for p in price:
+#     pr = p.text.strip()
+#     prices.append(pr)
+#
+# product = {'Title': titles, 'Star': stars, 'Price': prices}
+# data = pd.DataFrame.from_dict(product, orient='index')
+# data = data.transpose()
+# writer = pd.ExcelWriter('product.xlsx')
+# data.to_excel(writer)
+# writer.save()
 
 # _____________________________________________________________________________________________________________________

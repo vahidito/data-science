@@ -2,26 +2,20 @@ import requests
 from bs4 import BeautifulSoup as bs
 import numpy as np
 import pandas as pd
-url = 'https://www.varzesh3.com/'
-response = requests.get(url)
-soup = bs(response.text, 'html.parser')
-# print(soup.text)
 
+url_3 = 'https://search.codal.ir/api/search/v2/q?&Audited=true&AuditorRef=-1&Category=1&Childs=false&CompanyState=-1&CompanyType=-1&Consolidatable=true&IsNotAudited=false&Length=-1&LetterType=6&Mains=true&NotAudited=true&NotConsolidatable=true&PageNumber=1&Publisher=false&TracingNo=-1&search=true'
+header = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'}
+response_3 = requests.get(url=url_3, headers=header)
+aaa = response_3.text.split('SuperVision":{')
+tickers = []
+names = []
+print(len(aaa))
+# print(aaa)
 
-url_3 = 'https://www.skysports.com/premier-league-table'
-response_3 = requests.get(url_3)
-soup_3 = bs(response_3.text, 'html.parser')
-table_3 = soup_3.find('table')
-rows = table_3.find_all('tr')
-print(rows)
-# for row in rows:
-#     data = []
-#     for head in row.findAll('th'):
-#         # print(head.text)
-#         heads = head.text
-#         data.append(heads)
-#
-#     for body in row.findAll('td')[0:-1]:
-#         bodies = body.text.replace('\n', '')
-#         data.append(bodies)
-#     print(data)
+for a in aaa:
+    ticker.append(a)
+
+print(ticker[1])
+
+product = {'Ticker': tickers, 'Name': names}
