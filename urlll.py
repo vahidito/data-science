@@ -13,7 +13,7 @@ tickers = []
 names = []
 # print(len(aaa))
 
-for a in aaa:
+for a in aaa[:]:
     # print(a)
     ticker = a.split('Symbol":"')[1].split('"')[0]
     name = a.split('CompanyName":"')[1].split('"')[0]
